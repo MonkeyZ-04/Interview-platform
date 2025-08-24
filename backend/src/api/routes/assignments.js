@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const assignmentController = require('../controllers/assignmentController');
-const { protect } = require('../../middleware/auth'); // Middleware ตรวจสอบว่าล็อกอินหรือยัง
+const { protect } = require('../../middleware/auth');
 
-// GET /api/assignments/my-table
+// Middleware 'protect' ควรใช้กับทุก route ที่ต้องการการยืนยันตัวตน
+router.get('/', protect, assignmentController.getAllAssignments);
 router.get('/my-table', protect, assignmentController.getMyTableAssignments);
+router.put('/:id', protect, assignmentController.updateAssignment);
+router.post('/shuffle', protect, assignmentController.shuffleAssignments);
 
 module.exports = router;

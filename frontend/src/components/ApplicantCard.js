@@ -1,21 +1,16 @@
 import React from 'react';
-
-// ใช้ CSS Modules เพื่อไม่ให้ style ชนกัน
-import styles from './ApplicantCard.module.css';
+import './ApplicantCard.css';
 
 function ApplicantCard({ data }) {
-  // สร้าง class แบบ dynamic ตาม status
-  const statusClass = data.status === 'Arrived' ? styles.arrived : styles.scheduled;
-
   return (
-    <div className={`${styles.card} ${statusClass}`}>
-      <div className={styles.header}>
+    <div className={`interview-card ${data.status.toLowerCase()}`}>
+      <div className="card-header">
         <h3>{data.first_name} {data.last_name}</h3>
-        <span className={styles.nickname}>({data.nickname})</span>
+        <span className="nickname">({data.nickname})</span>
       </div>
-      <div className={styles.footer}>
-        <span className={styles.status}>{data.status}</span>
-        <button className={styles.button}>Score</button>
+      <div className="card-body">
+        <span className={`status-tag ${data.status.toLowerCase()}`}>{data.status}</span>
+        <button className="score-button">View & Score</button>
       </div>
     </div>
   );

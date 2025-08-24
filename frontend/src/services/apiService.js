@@ -1,24 +1,22 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001/api'; // URL ของ Backend
+const API_URL = 'http://localhost:3001/api';
 
-// ตั้งค่าให้ axios ส่ง token ไปกับทุก request โดยอัตโนมัติ
 const api = axios.create({
   baseURL: API_URL,
 });
 
+// ตั้งค่าให้ส่ง token ไปกับทุก request (ในระบบจริง token จะได้มาตอน login)
 api.interceptors.request.use(config => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  // const token = localStorage.getItem('token');
+  const MOCK_TOKEN = 'mock-jwt-token'; // ใช้ token จำลองไปก่อน
+  if (MOCK_TOKEN) {
+    config.headers.Authorization = `Bearer ${MOCK_TOKEN}`;
   }
   return config;
 });
 
-
-export const getMyTableAssignments = () => {
-  return api.get('/assignments/my-table');
-};
-
-// สามารถเพิ่มฟังก์ชันอื่นๆ ได้ที่นี่ เช่น
-// export const updateApplicantStatus = (id, status) => api.put(`/assignments/${id}/status`, { status });
+export const getAllAssignments = () => api.get('/assignments');
+export const getMyTableAssignments = () => api.get('/assignments/my-table');
+export const updateAssignment = (id, data) => api.put(`/assignments/${id}`, data);
+export const shuffleAssignments = (timeslot_id) => api.post('/assignments/shuffle', { timeslot_id });

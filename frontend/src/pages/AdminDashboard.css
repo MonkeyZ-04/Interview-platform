@@ -1,0 +1,81 @@
+.admin-dashboard {
+  padding: 20px;
+  font-family: sans-serif;
+}
+.admin-dashboard header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.shuffle-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.kanban-board {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+.kanban-column {
+  flex: 1 0 280px;
+  min-width: 280px;
+  background-color: #f4f5f7;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.kanban-column h2 {
+  padding: 15px;
+  margin: 0;
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+}
+.kanban-items {
+  padding: 10px;
+  flex-grow: 1;
+  min-height: 100px;
+}
+.applicant-card {
+  background-color: white;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  cursor: grab;
+}
+.applicant-card.dragging {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.applicant-card p {
+    margin: 0 0 10px 0;
+}
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.status {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+.status.scheduled { background-color: #6c757d; }
+.status.arrived { background-color: #28a745; }
+.check-in-btn {
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 3px;
+}

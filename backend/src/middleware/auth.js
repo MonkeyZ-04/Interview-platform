@@ -1,31 +1,24 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../models/User'); // Adjust the path as necessary
+require('dotenv').config();
 
-const authMiddleware = async (req, res, next) => {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+// Middleware นี้เป็นตัวอย่างเบื้องต้น ในระบบจริงควรสมบูรณ์กว่านี้
+exports.protect = (req, res, next) => {
+  let token;
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    token = req.headers.authorization.split(' ')[1];
+  }
 
-    if (!token) {
-        return res.status(401).json({ message: 'Access denied. No token provided.' });
-    }
+  if (!token) {
+    return res.status(401).json({ message: 'Not authorized, no token' });
+  }
 
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = await User.findById(decoded.id);
-        next();
-    } catch (error) {
-        res.status(400).json({ message: 'Invalid token.' });
-    }
-};
-
-const adminMiddleware = (req, res, next) => {
-    if (req.user && req.user.role === 'admin') {
-        next();
-    } else {
-        res.status(403).json({ message: 'Access denied. Admins only.' });
-    }
-};
-
-module.exports = {
-    authMiddleware,
-    adminMiddleware,
+  try {
+    // ในระบบจริง ควรจะ verify token และดึงข้อมูล user จากฐานข้อมูล
+    // ที่นี่เราจะจำลองว่า token ถูกต้องและมี user id = 1 (เป็นกรรมการ)
+    // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = { id: 1, role: 'interviewer' }; // Mock user
+    next();
+  } catch (error) {
+    res.status(401).json({ message: 'Not authorized, token failed' });
+  }
 };
